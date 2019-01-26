@@ -12,7 +12,20 @@ https://github.com/Valloric/YouCompleteMe
 
 # Shadow
 
+## Shadow
 https://github.com/shadowsocks/shadowsocks/tree/master
 
     apt-get install python-pip
-    pip install git+https://github.com/shadowsocks/shadowsocks.git@master
+    pip install git+https://github.com/shadowsocks/shadowsocks.git@master 
+
+## libsodium
+    apt-get install apt-get install libsodium-dev
+
+## auto start
+Add A New Cron Job
+
+    sudo crontab -e
+    @reboot path/to/start.sh &
+
+
+ 
