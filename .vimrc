@@ -19,6 +19,9 @@ Plugin 'VundleVim/Vundle.vim'
 " plugin on GitHub repo
 " Plugin 'tpope/vim-fugitive'
  Plugin 'Valloric/YouCompleteMe'
+ Plugin 'scrooloose/nerdtree'
+ Plugin 'Xuyuanp/nerdtree-git-plugin'
+
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Plugin 'L9'
 " Git plugin not hosted on GitHub
@@ -55,35 +58,51 @@ filetype plugin indent on    " required
 let g:ycm_python_binary_path = '/usr/bin/python3'
 " C family Completion Path
 let g:ycm_global_ycm_extra_conf='~/.ycm/cpp/.ycm_extra_conf.py'
-" 跳转快捷键
+" Mapping key for jump
 nnoremap <c-k> :YcmCompleter GoToDeclaration<CR>|
 nnoremap <c-h> :YcmCompleter GoToDefinition<CR>| 
 nnoremap <c-j> :YcmCompleter GoToDefinitionElseDeclaration<CR>|
-" 停止提示是否载入本地ycm_extra_conf文件
+" When this option is set to 1 YCM will ask once per .ycm_extra_conf.py file if it is safe to be loaded
 let g:ycm_confirm_extra_conf = 0
-" 语法关键字补全
+" if keyword of programming language you're writing is autocompleted
 let g:ycm_seed_identifiers_with_syntax = 1
-" 开启 YCM 基于标签引擎
+" enable YCM tag  
 let g:ycm_collect_identifiers_from_tags_files = 1
-" 从第2个键入字符就开始罗列匹配项
+" autocomple from N-th of char
 let g:ycm_min_num_of_chars_for_completion=2
-" 在注释输入中也能补全
+" enable autocomplation in comments
 let g:ycm_complete_in_comments = 1
-" 在字符串输入中也能补全
+" enable autocomplation in string 
 let g:ycm_complete_in_strings = 1
-" 注释和字符串中的文字也会被收入补全
+" if identifiers in comments and string can be autocompleted
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
-" 弹出列表时选择第1项的快捷键(默认为<TAB>和<Down>)
+" short-cut for selecting first item in prompt (default <TAB> and <Down>)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-" 弹出列表时选择前1项的快捷键(默认为<S-TAB>和<UP>)
+" short-cut for selecting last item in prompt (default <S-TAB> and <UP>)
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-" 主动补全, 默认为<C-Space>
+" if prompt automatically, default <C-Space>
 "let g:ycm_key_invoke_completion = ['<C-Space>']
-" 停止显示补全列表(防止列表影响视野), 可以按<C-Space>重新弹出
+" hide autocomplation prompt, can be shown by type <C-Space>
 "let g:ycm_key_list_stop_completion = ['<C-y>']
 
+"###########          NERDTree              ################"
+"open a NERDTree automatically when vim starts up"
+"autocmd vimenter * NERDTree
+
+"open a NERDTree automatically when vim starts up if no files were specified"
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+"close vim if the only window left open is a NERDTree"
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+"change default arrows"
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
 
 
+"###########         NERDTree  Git      ################"
+let g:NERDTreeIndicatorMapCustom = {"Modified" : "*", "Staged" : "@", "Untracked" : "~", "Renamed" : "Rn", "Unmerged" : "═", "Deleted" : "D", "Dirty" : "Dirty", "Clean" : "C", 'Ignored' : 'I', "Unknown" : "?"}
 
 "##########          COLOR THEME             ################"
 "color theme"
@@ -119,4 +138,3 @@ set expandtab
      return
      endif
  endfunc
-
