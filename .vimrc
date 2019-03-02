@@ -21,6 +21,7 @@ Plugin 'VundleVim/Vundle.vim'
  Plugin 'Valloric/YouCompleteMe'
  Plugin 'scrooloose/nerdtree'
  Plugin 'Xuyuanp/nerdtree-git-plugin'
+ Plugin 'tpope/vim-commentary'
 
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Plugin 'L9'
@@ -104,17 +105,27 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 "###########         NERDTree  Git      ################"
 let g:NERDTreeIndicatorMapCustom = {"Modified" : "*", "Staged" : "@", "Untracked" : "~", "Renamed" : "Rn", "Unmerged" : "═", "Deleted" : "D", "Dirty" : "Dirty", "Clean" : "C", 'Ignored' : 'I', "Unknown" : "?"}
 
-"##########          COLOR THEME             ################"
+
+"###########          auto formater         ################"
+" need to install astyple
+" sudo apt-get install astyle
+ map <f2> :call formatcode()<cr>
+ func! formatcode()
+     exec "w"
+     if &filetype == 'c' || &filetype == 'h'
+         exec "!astyle --style=google %"
+     elseif &filetype == 'cpp'
+         exec "!astyle --style=google %"        
+     return
+     endif
+ endfunc
+
+
+"##########          VIM              ################"
 "color theme"
 :color desert
-
-
-"##########          LINE NUMBER             ################"
+"line numver"
 set number
-
-
-
-"##########          SPACE INTENT            ################"
 "space intent"
 filetype plugin indent on
 " show existing tab with 4 spaces width
@@ -124,17 +135,3 @@ set shiftwidth=4
 " On pressing tab, insert 4 spaces
 set expandtab
 
-
-"###########          AUTO FORMATER         ################"
-" need to install astyple
-" sudo apt-get install astyle
- map <F2> :call FormatCode()<CR>
- func! FormatCode()
-     exec "w"
-     if &filetype == 'C' || &filetype == 'h'
-         exec "!astyle --style=google %"
-     elseif &filetype == 'cpp'
-         exec "!astyle --style=google %"        
-     return
-     endif
- endfunc
