@@ -109,8 +109,8 @@ let g:NERDTreeIndicatorMapCustom = {"Modified" : "*", "Staged" : "@", "Untracked
 "###########          auto formater         ################"
 " need to install astyple
 " sudo apt-get install astyle
- map <f2> :call formatcode()<cr>
- func! formatcode()
+ map <f2> :call Formatcode()<cr>
+ func! Formatcode()
      exec "w"
      if &filetype == 'c' || &filetype == 'h'
          exec "!astyle --style=google %"
