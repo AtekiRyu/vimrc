@@ -1,0 +1,22 @@
+;v2ray 
+docker run -d \
+-e METHOD=aes-256-gcm \
+-e "ARGS=--plugin v2ray-plugin --plugin-opts server" \
+-e PASSWORD=PASSWORD \
+--name=shadowsocks-libev \
+-p 80:8388/tcp \
+-p 80:8388/udp \
+--restart=always \
+acrisliu/shadowsocks-libev
+
+
+; simple
+docker run -d \
+--name=shadowsocks-router \
+-e METHOD=aes-256-cfb \
+-e PLUGIN_OPTS=obfs=http \
+-e ENABLE_OBFS=true \
+-e PASSWORD=PASSWORD \
+-p 441:10000/tcp \
+-p 441:10000/udp \
+lunksana/docker-proxy:latest
